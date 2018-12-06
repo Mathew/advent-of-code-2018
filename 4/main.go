@@ -82,7 +82,7 @@ func (s shifts) getSleepiestMinuteForGuard(guardId string) int {
 	return sleepiestMinute
 }
 
-func (s shifts) getSleepiestMinuteWithGuard() (string, int)  {
+func (s shifts) getSleepiestMinuteWithGuard() (string, int) {
 	napMinutes := map[string]map[int]int{}
 
 	for _, gs := range s {
@@ -111,7 +111,6 @@ func (s shifts) getSleepiestMinuteWithGuard() (string, int)  {
 				sleepiestGuardId = guardId
 			}
 		}
-
 
 	}
 
