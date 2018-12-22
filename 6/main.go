@@ -106,7 +106,6 @@ func calculateMostOwnedCoords(locations []location, coordLocations []location, g
 	ownedMap := make(map[location]int)
 	excludedLocations := []location{}
 
-
 	for _, coordLocation := range coordLocations {
 		var closestDist int
 		tie := false
@@ -147,11 +146,29 @@ func calculateMostOwnedCoords(locations []location, coordLocations []location, g
 	return getMaxLocationCount(ownedMap, excludedLocations) - 1
 }
 
-func main() {
+func getRegionSize(locations []location, coordLocations []location, distance int) int {
+	regionSize := 0
+	for _, coordLocation := range coordLocations {
+		totalDistance := 0
+		for _, l := range locations {
+			totalDistance += l.calculateDistance(coordLocation)
+		}
 
+		if totalDistance < distance {
+			regionSize++
+		}
+	}
+
+	return regionSize
+}
+
+func main() {
 	rawData := files.LoadFile(filePath)
+	distance := 10000
+
 	locations := makeLocations(rawData)
 	coordLocations := makeCoordLocations(getGridSize(locations))
 
 	fmt.Println("The answer to part one is: ", calculateMostOwnedCoords(locations, coordLocations, getGridSize(locations)))
+	fmt.Println("The answer to part two is: ", getRegionSize(locations, coordLocations, distance))
 }
